@@ -13,5 +13,6 @@ namespace Data
         public string Profissao { get; set; }
         public string Setor { get; set;}
         public string Obs { get; set; }
+
     }
 }
