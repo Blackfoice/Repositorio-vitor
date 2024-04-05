@@ -13,6 +13,7 @@ namespace ChamadosTecnicosTec55.Adicionar
 {
     public partial class frmTecnicoAdicionar : Form
     {
+        // Chamaaa a conexão 
         string _conexao = ChamadosTecnicosTec55.Properties.Settings.Default.Conexao;
 
         public frmTecnicoAdicionar()
@@ -20,23 +21,13 @@ namespace ChamadosTecnicosTec55.Adicionar
             InitializeComponent();
         }
 
-        private void btnLimpar_Click(object sender, EventArgs e)
-        {
-            txbEmail.Clear();
-            txbEspecialidade.Clear();
-            txbNome.Clear();
-            txbObs.Clear();
-            txbSenha.Clear();
-        }
-
         private void btnSalvar_Click(object sender, EventArgs e)
         {
             // Chama o objeto Cliente
             Tecnico tecnico = new Tecnico();
-            TecnicoDao tecnicoDao = new TecnicoDao(_conexao);
+            TecnicoDao tecnicodao = new TecnicoDao(_conexao);
 
-            if (string.IsNullOrWhiteSpace(txbNome.Text) || string.IsNullOrWhiteSpace(txbObs.Text) || string.IsNullOrWhiteSpace(txbSenha.Text) || string.IsNullOrWhiteSpace(txbEspecialidade.Text) || string.IsNullOrWhiteSpace(txbEmail.Text))
-
+            if (string.IsNullOrWhiteSpace(txbNome.Text) || string.IsNullOrWhiteSpace(txbEspecialidade.Text) || string.IsNullOrWhiteSpace(txbEmail.Text) || string.IsNullOrWhiteSpace(txbSenha.Text) || string.IsNullOrWhiteSpace(txbObs.Text))
             {
                 MessageBox.Show("CADE OS DADOSSS ??");
             }
@@ -47,15 +38,16 @@ namespace ChamadosTecnicosTec55.Adicionar
                 {
                     // Preenche o Objeto Cliente
                     tecnico.Nome = txbNome.Text;
-                    tecnico.Email = txbEmail.Text;
-                    tecnico.Obs = txbObs.Text;
                     tecnico.Especialidade = txbEspecialidade.Text;
+                    tecnico.Email = txbEmail.Text;
                     tecnico.Senha = txbSenha.Text;
+                    tecnico.Obs = txbObs.Text;
 
                     // CHAMA O DAO para incluir o cliente
-                    tecnicoDao.IncluiTecnicos(tecnico);
+                    tecnicodao.IncluiTecnico(tecnico);
 
                     MessageBox.Show("Cadastrado com sucesso !");
+
                     this.Close();
 
                 }
@@ -69,4 +61,3 @@ namespace ChamadosTecnicosTec55.Adicionar
         }
     }
 }
-
