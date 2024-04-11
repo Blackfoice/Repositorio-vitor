@@ -55,5 +55,22 @@ namespace ChamadosTecnicosTec55.Alterar
                 MessageBox.Show("Digite algo para buscar");
             }
         }
+
+        private void btnAlterar_Click(object sender, EventArgs e)
+        {
+            if(dgvCliente.SelectedRows.Count > 0)
+            {
+                int codigo = Convert.ToInt32(dgvCliente.CurrentRow.Cells[0].Value);
+
+                var frmAlterarCliente = new frm_AlterarCliente();
+                frmAlterarCliente.ShowDialog();
+
+                ListarClientes();
+            }
+            else
+            {
+                MessageBox.Show("Selecione um resgistro para alterãção");
+            }
+        }
     }
 }
