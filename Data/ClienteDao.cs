@@ -71,5 +71,63 @@ namespace Data
                 throw new Exception($"Erro ao Buscar Clientes: {ex.Message}");
             }     
         }
+        public Cliente obtemCliente(int codigoCliente)
+        {
+            const string query = @"select * from Clientes where CodigoCliente = @CodigoCliente";
+
+            Cliente cliente = null;
+
+            try
+            {
+                using (var conexaoBd = new SqlConnection(_conexao))
+                using (var comando = new SqlCommand(query,conexaoBd))
+                {
+                  comando.Parameters.AddWithValue("@CodigoCliente", codigoCliente);
+                  conexaoBd.Open();
+                     using(var reader = comando.ExecuteReader())
+                     {
+                        if (reader.Read())
+                        {
+                          cliente = new Cliente
+                          {
+                              CodigoCliente = Convert.ToInt32(reader["CodigoCliente"]),
+                              Nome = reader["Nome"].ToString(),
+                              Profissao = reader["Profissao"].ToString(),
+                              Obs = reader["Obs"].ToString(),
+                              Setor = reader["Setor"].ToString(),
+                          };  
+                        }
+                     }
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"Erro ao obter o cliente{ex.Message}", ex);
+            }
+            return cliente;
+        }
+        public void AlterarCliente(Cliente cliente)
+        {
+            const string query = @"update Clientes set nome=@Nome,  
+                                                       Setor=@Setor,
+                                                       Profissao=@Profissao,
+                                                       Obs=@Obs
+                                                       where CodigoCliente = @CodigoCliente";
+            try
+            {
+                using (var conexaoBd = new SqlConnection(_conexao))
+                using (var comando = new SqlCommand(query, conexaoBd))
+                {
+                    comando.Parameters.AddWithValue("@Nome", cliente.Nome);
+                    comando.Parameters.AddWithValue("@Setor", cliente.Setor);
+                    comando.Parameters.AddWithValue("@Profissao", cliente.Profissao);
+                    comando.Parameters.AddWithValue("@Obs", cliente.Obs);
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"Erro{ex.Message}");
+            }
+        }
     }
 }

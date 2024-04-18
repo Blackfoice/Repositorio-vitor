@@ -62,7 +62,7 @@ namespace ChamadosTecnicosTec55.Alterar
             {
                 int codigo = Convert.ToInt32(dgvCliente.CurrentRow.Cells[0].Value);
 
-                var frmAlterarCliente = new frm_AlterarCliente();
+                var frmAlterarCliente = new frm_AlterarCliente(codigo);
                 frmAlterarCliente.ShowDialog();
 
                 ListarClientes();

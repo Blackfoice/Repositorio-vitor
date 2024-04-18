@@ -24,24 +24,49 @@ namespace ChamadosTecnicosTec55
                 Cliente cliente = new Cliente();
                 ClienteDao clienteDao = new ClienteDao(_conexao);
 
-                cliente = clienteDao.ObtemCliente(codigo);
+                cliente = clienteDao.obtemCliente(codigo);
 
                 if (cliente == null) 
                 {
-                    MessageBox.Show("Clienre não encontrado");
+                    MessageBox.Show("Cliente não encontrado");
                     this.Close();
 
                 }
                 txbCodigo.Text = cliente.CodigoCliente.ToString();
-                txbCodigo.Text = cliente.Nome;
-                txbCodigo.Text = cliente.Profissao;
-                txbCodigo.Text = cliente.Setor;
-                txbCodigo.Text = cliente.Obs;
+                txbNome.Text = cliente.Nome;
+                txbProfissao.Text = cliente.Profissao;
+                txbSetor.Text = cliente.Setor;
+                txbObs.Text = cliente.Obs;
 
 
 
             }
         }
 
+        private void btnOk_Click(object sender, EventArgs e)
+        {
+            Cliente cliente = new Cliente();
+            ClienteDao clientedao = new ClienteDao(_conexao);
+
+            try
+            {
+                cliente.Nome = txbNome.Text;
+                cliente.Profissao = txbProfissao.Text;
+                cliente.Setor = txbSetor.Text;
+                cliente.Obs = txbObs.Text;
+
+                int codigo = Convert.ToInt32(txbCodigo.Text);
+
+                cliente.CodigoCliente = codigo;
+
+                cliente.AlterarCliente(cliente);
+
+                this.Close();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);    
+            }
+        }
     }
 }
