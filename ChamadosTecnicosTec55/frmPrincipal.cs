@@ -92,5 +92,14 @@ namespace ChamadosTecnicosTec55
             frmGestor.MdiParent = this;
             frmGestor.Show();
         }
+
+        private void gestorDeTecnicosToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            var frmGestor = new frmGestorTecnico();
+            // Define o Formulário pai 
+            frmGestor.MdiParent = this;
+            frmGestor.Show();
+
+        }
     }
 }

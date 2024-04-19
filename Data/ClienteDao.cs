@@ -138,6 +138,29 @@ namespace Data
             }
         }
 
+        public void ExcluiCliente(int codigoCliente)
+        {
+            const string query = @"delete from clientes where codigocliente = @codigoCliente";
+
+            try
+            {
+                using(var conexaoBd = new SqlConnection(_conexao))
+                using (var comando = new SqlCommand(query, conexaoBd))
+                {
+                    comando.Parameters.AddWithValue("@CodigoCliente", codigoCliente);
+                    conexaoBd.Open();
+                    comando.ExecuteNonQuery();  
+             
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"Erro ao obter o cliente {ex.Message}", ex);
+            }
+        }
+        
+
     }
+
 }
 

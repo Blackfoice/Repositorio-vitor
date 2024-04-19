@@ -118,6 +118,7 @@
             this.btnExcluir.TabIndex = 7;
             this.btnExcluir.Text = "Excluir Cliente";
             this.btnExcluir.UseVisualStyleBackColor = true;
+            this.btnExcluir.Click += new System.EventHandler(this.btnExcluir_Click);
             // 
             // frmGerirClientes
             // 

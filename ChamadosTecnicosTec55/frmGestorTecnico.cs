@@ -1,4 +1,5 @@
 ﻿using ChamadosTecnicosTec55.Adicionar;
+using ChamadosTecnicosTec55.Alterar;
 using Data;
 using System;
 using System.Collections.Generic;
@@ -10,71 +11,62 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace ChamadosTecnicosTec55.Alterar
+namespace ChamadosTecnicosTec55
 {
-    public partial class frmGerirClientes : Form
+    public partial class frmGestorTecnico : Form
     {
         string _conexao = ChamadosTecnicosTec55.Properties.Settings.Default.Conexao;
-       
-        public frmGerirClientes()
+        public frmGestorTecnico()
         {
             InitializeComponent();
-
         }
-        
-        // Busca no DAO o Cliente
-        private void ListarCliente()
+        private void Listartecnico()
         {
             // Chama o Cliente DAO 
-            ClienteDao clientedao = new ClienteDao(_conexao);
+            TecnicoDao tecnicoDao = new TecnicoDao(_conexao);
             // Captura o valor digitado na barra texto TXB
             string busca = txbBuscar.Text.ToString();
             // Chama o Metodo BuscaCliente do objeto 
             DataSet ds = new DataSet();
-            ds = clientedao.BuscaCliente(busca);
+            ds = tecnicoDao.BuscaTecnico(busca);
             // Defini o DataSource do DataGridView
-            dgvCliente.DataSource = ds;
+            dgvTecnicos.DataSource = ds;
             // DEFINI O MEMBRO DO DATASET 
-            dgvCliente.DataMember = "Clientes";
+            dgvTecnicos.DataMember = "Tecnicos";
         }
 
-        private void frmGerirClientes_Load(object sender, EventArgs e)
-        {
-            ListarCliente();
-        }
 
         private void btnIncluir_Click(object sender, EventArgs e)
         {
-            var frmaddCliente = new frmAdicionarCliente();
-            frmaddCliente.Show();
+            var frmaddTecnico = new frmTecnicoAdicionar();
+            frmaddTecnico.Show();
         }
 
-        private void btnBuscar_Click(object sender, EventArgs e)
+        private void btnB_Click(object sender, EventArgs e)
         {
-            if(txbBuscar.Text != "")
+            if (txbBuscar.Text != "")
             {
-                ListarCliente();
+                Listartecnico();
             }
             else
             {
                 MessageBox.Show("Digite algo para buscar");
             }
-            
         }
 
         private void btnAlterar_Click(object sender, EventArgs e)
         {
             // Verifique se algum linha está selecionada no DGV
-            if(dgvCliente.SelectedRows.Count > 0)
+            if (dgvTecnicos.SelectedRows.Count > 0)
             {
                 // obtém o código do cliente da linha selecionada
-                int codigo = Convert.ToInt32(dgvCliente.CurrentRow.Cells[0].Value);
+                int codigo = Convert.ToInt32(dgvTecnicos.CurrentRow.Cells[0].Value);
 
-                var frmAlteraCliente = new frmAlterarCliente(codigo);
-                frmAlteraCliente.ShowDialog();
+                var frmAlteraTecnico = new frmAlterarTecnico(codigo);
+                frmAlteraTecnico.ShowDialog();
 
                 // Apos a tela fechar listar os clientes cadastrados 
-                ListarCliente();
+                Listartecnico();
             }
             else
             {
@@ -85,23 +77,28 @@ namespace ChamadosTecnicosTec55.Alterar
 
         private void btnExcluir_Click(object sender, EventArgs e)
         {
-            if(dgvCliente.SelectedRows.Count > 0)
+            if (dgvTecnicos.SelectedRows.Count > 0)
             {
-                int codigo = Convert.ToInt32(dgvCliente.CurrentRow.Cells[0].Value);
+                int codigo = Convert.ToInt32(dgvTecnicos.CurrentRow.Cells[0].Value);
 
-                var resultado = MessageBox.Show("Deseja Excluir?","Pesquisa",MessageBoxButtons.YesNo,MessageBoxIcon.Question,MessageBoxDefaultButton.Button2);
+                var resultado = MessageBox.Show("Deseja Excluir?", "Pesquisa", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2);
 
-                if(resultado == DialogResult.Yes)
+                if (resultado == DialogResult.Yes)
                 {
                     ClienteDao clienteDao = new ClienteDao(_conexao);
                     clienteDao.ExcluiCliente(codigo);
-                    ListarCliente();
+                    Listartecnico();
                 }
                 else
                 {
                     MessageBox.Show("Selecione um Registro");
                 }
             }
+        }
+
+        private void frmGestorTecnico_Load(object sender, EventArgs e)
+        {
+            Listartecnico();
         }
     }
 }

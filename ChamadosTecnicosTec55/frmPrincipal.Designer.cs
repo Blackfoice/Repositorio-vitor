@@ -33,7 +33,7 @@
             this.cadastroToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.clienteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.técnicoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.gestorDeChamadosToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.gestorDeTecnicosToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.gestorDeClientesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.calculadoraToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.documentaçãoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -47,7 +47,7 @@
             this.menuStrip.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
             this.menuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.cadastroToolStripMenuItem,
-            this.gestorDeChamadosToolStripMenuItem,
+            this.gestorDeTecnicosToolStripMenuItem,
             this.gestorDeClientesToolStripMenuItem,
             this.calculadoraToolStripMenuItem,
             this.documentaçãoToolStripMenuItem,
@@ -83,11 +83,12 @@
             this.técnicoToolStripMenuItem.Text = "Técnico";
             this.técnicoToolStripMenuItem.Click += new System.EventHandler(this.técnicoToolStripMenuItem_Click);
             // 
-            // gestorDeChamadosToolStripMenuItem
+            // gestorDeTecnicosToolStripMenuItem
             // 
-            this.gestorDeChamadosToolStripMenuItem.Name = "gestorDeChamadosToolStripMenuItem";
-            this.gestorDeChamadosToolStripMenuItem.Size = new System.Drawing.Size(129, 20);
-            this.gestorDeChamadosToolStripMenuItem.Text = "Gestor de Chamados";
+            this.gestorDeTecnicosToolStripMenuItem.Name = "gestorDeTecnicosToolStripMenuItem";
+            this.gestorDeTecnicosToolStripMenuItem.Size = new System.Drawing.Size(117, 20);
+            this.gestorDeTecnicosToolStripMenuItem.Text = "Gestor de Tecnicos";
+            this.gestorDeTecnicosToolStripMenuItem.Click += new System.EventHandler(this.gestorDeTecnicosToolStripMenuItem_Click);
             // 
             // gestorDeClientesToolStripMenuItem
             // 
@@ -151,7 +152,7 @@
         private System.Windows.Forms.ToolStripMenuItem cadastroToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem clienteToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem técnicoToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem gestorDeChamadosToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem gestorDeTecnicosToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem gestorDeClientesToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem calculadoraToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem documentaçãoToolStripMenuItem;
