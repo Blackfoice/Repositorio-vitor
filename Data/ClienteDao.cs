@@ -47,72 +47,76 @@ namespace Data
             }
         }
 
-        public DataSet BuscaCliente(string pesquisa = "")
+        public DataSet BuscaCliente(string pesquisa = "") 
         {
-            const string query = "Select * From Clientes Where Nome Like @pesquisa";
+            // Constante com o Código SQL que faz busca a partir de texto
+            const string query = "Select * From Clientes Where Nome like @pesquisa";
 
+            // Validar Erro
             try
             {
                 using (var conexaoBd = new SqlConnection(_conexao))
-                using (var comando = new SqlCommand(query, conexaoBd))
+                using (var comando = new SqlCommand(query, conexaoBd)) 
                 using (var adaptador = new SqlDataAdapter(comando))
                 {
-                    string parametroPesquisa = $"%{pesquisa}%";
-                    comando.Parameters.AddWithValue("@pesquisa", parametroPesquisa);
-                    conexaoBd.Open();
-                    var dsClientes = new DataSet();
-                    adaptador.Fill(dsClientes, "Clientes");
-                    return dsClientes;
+                  string parametroPesquisa = $"%{pesquisa}%";
+                  comando.Parameters.AddWithValue("@pesquisa", parametroPesquisa);
+                  conexaoBd.Open();
+                  var dsClientes = new DataSet();
+                  adaptador.Fill(dsClientes, "Clientes");
+                  return dsClientes;
                 }
+               
             }
             catch (Exception ex)
             {
-
-                throw new Exception($"Erro ao Buscar Clientes: {ex.Message}");
-            }     
+               throw new Exception($"Erro ao buscar Clientes: {ex.Message}");
+            }
         }
-        public Cliente obtemCliente(int codigoCliente)
+        // Xuxar aqui
+        public Cliente ObtemCliente(int codigoCliente)
         {
-            const string query = @"select * from Clientes where CodigoCliente = @CodigoCliente";
-
+            // Define o sql para obter o cliente
+            const string query = @"select * from Clientes where
+                                   CodigoCliente = @CodigoCliente";
             Cliente cliente = null;
 
             try
             {
-                using (var conexaoBd = new SqlConnection(_conexao))
-                using (var comando = new SqlCommand(query,conexaoBd))
-                {
-                  comando.Parameters.AddWithValue("@CodigoCliente", codigoCliente);
-                  conexaoBd.Open();
-                     using(var reader = comando.ExecuteReader())
-                     {
+              using(var conexaoBd = new SqlConnection(_conexao))
+              using(var comando = new SqlCommand(query,conexaoBd))
+              {
+                comando.Parameters.AddWithValue("@CodigoCliente", codigoCliente);
+                conexaoBd.Open();
+                    using(var reader = comando.ExecuteReader())
+                    {
                         if (reader.Read())
                         {
-                          cliente = new Cliente
-                          {
-                              CodigoCliente = Convert.ToInt32(reader["CodigoCliente"]),
-                              Nome = reader["Nome"].ToString(),
-                              Profissao = reader["Profissao"].ToString(),
-                              Obs = reader["Obs"].ToString(),
-                              Setor = reader["Setor"].ToString(),
-                          };  
+                            cliente = new Cliente
+                            {
+                                CodigoCliente = Convert.ToInt32(reader["CodigoCliente"]),
+                                Nome = reader["Nome"].ToString(),
+                                Profissao = reader["Profissao"].ToString(),
+                                Obs = reader["Obs"].ToString(),
+                                Setor = reader["Setor"].ToString()
+                            };
                         }
-                     }
-                }
+                    }
+              }
             }
-            catch (Exception ex)
+            catch(Exception ex)
             {
-                throw new Exception($"Erro ao obter o cliente{ex.Message}", ex);
+                throw new Exception($"Erro ao obter o cliente {ex.Message}", ex);
             }
             return cliente;
         }
-        public void AlterarCliente(Cliente cliente)
+        public void AlteraCliente(Cliente cliente)
         {
-            const string query = @"update Clientes set nome=@Nome,  
-                                                       Setor=@Setor,
-                                                       Profissao=@Profissao,
-                                                       Obs=@Obs
-                                                       where CodigoCliente = @CodigoCliente";
+            const string query = @"update Clientes set Nome=@Nome,
+                                    Setor = @Setor,
+                                    Profissao = @Profissao,
+                                    Obs = @Observacao
+                                    where CodigoCliente = @CodCliente";
             try
             {
                 using (var conexaoBd = new SqlConnection(_conexao))
@@ -121,13 +125,19 @@ namespace Data
                     comando.Parameters.AddWithValue("@Nome", cliente.Nome);
                     comando.Parameters.AddWithValue("@Setor", cliente.Setor);
                     comando.Parameters.AddWithValue("@Profissao", cliente.Profissao);
-                    comando.Parameters.AddWithValue("@Obs", cliente.Obs);
+                    comando.Parameters.AddWithValue("@Observacao", cliente.Obs);
+                    comando.Parameters.AddWithValue("@CodCliente", cliente.CodigoCliente);
+
+                    conexaoBd.Open();
+                    comando.ExecuteNonQuery();
                 }
             }
-            catch (Exception ex)
+            catch(Exception ex)
             {
-                throw new Exception($"Erro{ex.Message}");
+                throw new Exception($"Erro{ex}");
             }
         }
+
     }
 }
+

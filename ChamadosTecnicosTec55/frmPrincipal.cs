@@ -87,10 +87,10 @@ namespace ChamadosTecnicosTec55
 
         private void gestorDeClientesToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            var formtecnico = new frmGerirClientes();
-            // Define o Formlário pai 
-            formtecnico.MdiParent = this;
-            formtecnico.Show();
+            var frmGestor = new frmGerirClientes();
+            // Define o Formulário pai 
+            frmGestor.MdiParent = this;
+            frmGestor.Show();
         }
     }
 }
